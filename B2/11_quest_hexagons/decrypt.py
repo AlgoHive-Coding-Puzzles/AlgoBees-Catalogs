@@ -31,15 +31,22 @@ class Decrypt:
         x, y = start_x, start_y
         for move in movements:
             dx, dy = directions[move]
-            x += dx
-            y += dy
-            cell = grid[y][x]
-            if cell == ".":
-                score += 0
-            elif cell == "R":
-                score += 5
-            elif cell == "O":
-                score -= 1
+            new_x = x + dx
+            new_y = y + dy
+            
+            # Check if the new position is within grid boundaries
+            if 0 <= new_y < len(grid) and 0 <= new_x < len(grid[new_y]):
+                x, y = new_x, new_y
+                cell = grid[y][x]
+                if cell == ".":
+                    score += 0
+                elif cell == "R":
+                    score += 5
+                elif cell == "O":
+                    score -= 1
+            else:
+                # Skip invalid moves that would go off the grid
+                continue
                 
         return score
 
