@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Use Compile Puzzles Action (BeeToFlow)
-        uses: AlgoHive-Coding-Puzzles/BeeToFlow@v0.0.5
+        uses: AlgoHive-Coding-Puzzles/BeeToFlow@v1.0.1
         with:
           target-directories: "B2"
 
