@@ -7,8 +7,8 @@ class Unveil:
         for line in self.lines:
             parts = line.split()
             name = parts[0]
-            speed = int(parts[2].replace("km/s", ""))
-            fly_time = int(parts[4].replace("seconds", ""))
+            speed = int(parts[3].replace("km/s", ""))
+            fly_time = int(parts[5].replace("seconds", ""))
             recharge_time = int(parts[-2].replace("seconds", ""))
             racers.append((name, speed, fly_time, recharge_time))
         

@@ -7,9 +7,9 @@ class Decrypt:
         for line in self.lines:
             parts = line.split()
             name = parts[0]
-            speed = int(parts[2].replace("km/s", ""))
-            fly_time = int(parts[4].replace("seconds", ""))
-            recharge_time = int(parts[-2].replace("seconds", ""))
+            speed = int(parts[3].replace("km/s", ""))
+            fly_time = int(parts[5].replace("secondes", ""))
+            recharge_time = int(parts[-2].replace("secondes", ""))
             racers.append((name, speed, fly_time, recharge_time))
                     
         time_limit = 7832

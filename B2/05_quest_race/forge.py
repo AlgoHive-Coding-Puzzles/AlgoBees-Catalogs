@@ -30,7 +30,7 @@ class Forge:
         return lines
     
     def generate_spec(self, name, speed, duration, recharge):
-        return f"{name} hover {speed}km/s for {duration} seconds, but then must recharge for {recharge} seconds."
+        return f"{name} vole a {speed}km/s pendant {duration} secondes, puis doit s'arrêter pour {recharge} secondes."
     
 if __name__ == '__main__':
     lines_count = int(sys.argv[1])
