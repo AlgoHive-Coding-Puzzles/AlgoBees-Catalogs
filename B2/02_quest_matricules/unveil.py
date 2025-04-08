@@ -9,7 +9,8 @@ class Unveil:
         total = 0
         for i in range(len(lines)):
             # Impair et divisible par 3
-            if not int(lines[i]) % 2 == 0 and int(lines[i]) % 3 == 0:
+            digit_sum = sum(int(digit) for digit in str(lines[i]))
+            if not digit_sum % 2 == 0 and digit_sum % 3 == 0:
                 total += int(lines[i])
                 
         return total
