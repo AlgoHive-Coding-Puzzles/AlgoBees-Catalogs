@@ -3,7 +3,7 @@ class Decrypt:
         self.lines = lines
 
     def run(self):
-        BOARD_SIZE = len(self.lines)
+        BOARD_SIZE = 125
         # Set up the board
         lights = {
             (x, y)
@@ -26,8 +26,8 @@ class Decrypt:
             # Calculate new 'lights' from the previous one
             lights = {
                 (x, y)
-                for x in range(100)
-                for y in range(100)
+                for x in range(BOARD_SIZE)
+                for y in range(BOARD_SIZE)
                 if (x, y) in lights and 2 <= neighbours(x, y) <= 3
                 or (x, y) not in lights and neighbours(x, y) == 3
             }

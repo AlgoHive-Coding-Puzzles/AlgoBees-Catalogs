@@ -3,7 +3,7 @@ class Unveil:
         self.lines = lines
 
     def run(self):
-        BOARD_SIZE = len(self.lines)
+        BOARD_SIZE = 125
         
         # Set up the board
         lights = {
@@ -31,12 +31,6 @@ class Unveil:
                 if (x, y) in lights and 2 <= neighbours(x, y) <= 3
                 or (x, y) not in lights and neighbours(x, y) == 3
             }
-            
-        # Print the lights after BOARD_SIZE iterations in a new text file
-        # with open('lights_after_100_iterations.txt', 'w') as f:
-        #     for y in range(BOARD_SIZE):
-        #         line = ''.join('#' if (x, y) in lights else '.' for x in range(BOARD_SIZE))
-        #         f.write(line + '\n')
 
         # Count Bee-Hive forms
         return self.count_bee_hives(lights)

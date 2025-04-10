@@ -13,27 +13,31 @@ class Unveil:
         b = int(hex_color[4:6], 16)
         
         bee_uv = max(0, int(b * 0.2 + g * 0.1 - r * 0.3))
-        bee_blue = int(b * 0.7 + g * 0.3)
         bee_green = int(g * 0.8)
+        bee_blue = int(b * 0.7 + g * 0.3)
         
-        return bee_uv, bee_blue, bee_green
+        return bee_uv, bee_green, bee_blue
        
     def run(self):
         vote_count = {
             'uv': 0,
+            'green': 0,
             'blue': 0,
-            'green': 0
         }
         for i in range(len(self.lines)):
             # Remove leading and trailing whitespace
             self.lines[i] = self.lines[i].strip()
             # Add the color to the vote count
-            uv, blue, green = self.determine_bee_vision_color(self.lines[i])
+            uv, green, blue = self.determine_bee_vision_color(self.lines[i])
             vote_count['uv'] += uv
-            vote_count['blue'] += blue
             vote_count['green'] += green
-            
-        new_hexa = self.build_new_hexa(vote_count['uv'], vote_count['blue'], vote_count['green'])
+            vote_count['blue'] += blue
+        
+        print(vote_count)
+        new_hexa = self.build_new_hexa(vote_count['uv'], vote_count['green'], vote_count['blue'])
+        
+        print(new_hexa)
+        print(f"New hex color: {new_hexa}")
         return self.convert_hexa_to_int(new_hexa) * 2     
         
     def build_new_hexa(self, u, g, b):
@@ -41,6 +45,7 @@ class Unveil:
         u = u % 256
         g = g % 256
         b = b % 256
+        print(f"U: {u}, G: {g}, B: {b}")
         return f'#{u:02X}{g:02X}{b:02X}'
     
     def convert_hexa_to_int(self, hexa):
