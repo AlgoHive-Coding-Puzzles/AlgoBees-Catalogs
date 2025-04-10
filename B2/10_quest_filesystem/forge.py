@@ -51,7 +51,7 @@ class Forge:
             
             # Generate files
             files = []
-            for _ in range(random.randint(0, MAX_FILES)):
+            for _ in range(random.randint(2, MAX_FILES)):
                 file_name, size = self.generate_file()
                 files.append((file_name, size))
             
@@ -59,7 +59,7 @@ class Forge:
                 structure["files"] = files
             
             # Generate subfolders
-            for _ in range(random.randint(0, MAX_FOLDERS_PER_FOLDER)):
+            for _ in range(random.randint(1, MAX_FOLDERS_PER_FOLDER)):
                 if depth < MAX_DEPTH:  # Ensure we don't go too deep
                     folder_name = self.generate_folder_name()
                     sub_structure = create_structure(depth + 1)
