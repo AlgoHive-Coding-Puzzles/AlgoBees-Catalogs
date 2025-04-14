@@ -102,7 +102,7 @@ class Unveil:
                     score += count_points(cell)
                     
                     path_length += 1
-                    display_grid()
+                    # display_grid()
                 else:
                     out_of_bounds = True
                     break
