@@ -15,6 +15,14 @@ class Unveil:
             if 'X' in row:
                 start_x, start_y = row.index('X'), i
                 break
+            
+        def count_points(cell):
+            if cell == "R":
+                return 5
+            elif cell == "O":
+                return -1
+            else:
+                return 0
         
         def generate_spiral(length):
                 spiral = ["NE"]
@@ -36,17 +44,28 @@ class Unveil:
             "SE": (1, 1),
             "SW": (-1, 1),
         }
+        
+        # ANSI color codes for spiral visualization
+        COLORS = [
+            "\033[91m",  # Red
+            "\033[92m",  # Green
+            "\033[93m",  # Yellow
+            "\033[94m",  # Blue
+            "\033[95m",  # Magenta
+            "\033[96m",  # Cyan
+            "\033[97m",  # White
+        ]
 
         # Helper to check if a cell is within bounds
         def is_valid(y, x):
             return 0 <= y < len(grid) and 0 <= x < len(grid[0])
 
         # Perform the spiral traversal
-        visited = set()
+        visited = {}  # Map (y,x) to spiral number
         path = []
         score = 0
         x, y = start_x, start_y
-        visited.add((y, x))
+        visited[(y, x)] = 0  # Starting position is spiral 0
         path.append((y, x))
 
         def display_grid():
@@ -54,48 +73,41 @@ class Unveil:
             for i, row in enumerate(grid):
                 for j, cell in enumerate(row):
                     if (i, j) in visited:
-                        print(f"\033[92m{cell}\033[0m", end=" ")  # Highlight visited cells in green
+                        spiral_num = visited[(i, j)]
+                        color_code = COLORS[spiral_num % len(COLORS)]
+                        print(f"{color_code}{cell}\033[0m", end=" ")  # Color based on spiral number
                     else:
                         print(cell, end=" ")
                 print()
             print(f"\nCurrent Score: {score}")
-            print(f"Current Path: {path}")
+            print(f"Path: {path}")
             time.sleep(0.3)
 
         # Spiral logic
         spiral_length = 1
         path_length = 0
-        direction_index = 0  # Track the current direction index
-        while True:
-            moved = False
+        out_of_bounds = False
+        current_spiral = 0
+
+        while not out_of_bounds:
             directions = generate_spiral(spiral_length)
-            direction_index = 0
-            for _ in range(len(directions)):
-                direction = directions[direction_index]
-                direction_index = (direction_index + 1) % len(directions)
+            for direction in directions:
                 dx, dy = direction_map[direction]
                 if is_valid(y + dy, x + dx):
                     y += dy
                     x += dx
-                    visited.add((y, x))
+                    visited[(y, x)] = current_spiral
                     path.append((y, x))
                     cell = grid[y][x]
-                    # print(f"{direction} : ({x}, {y}) = {cell}")
-                    if cell == ".":
-                        score += 0
-                    elif cell == "R":
-                        score += 5
-                    elif cell == "O":
-                        score -= 1
-                    moved = True
+                    score += count_points(cell)
+                    
                     path_length += 1
-                    # display_grid()
+                    display_grid()
                 else:
+                    out_of_bounds = True
                     break
-            if not moved:
-                break
-            else:
-                spiral_length += 1
+            spiral_length += 1
+            current_spiral += 1
 
         return path_length * score
 

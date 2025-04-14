@@ -27,6 +27,15 @@
   <br />
 
   <p>
+    <strong>Note importante sur les arrondis :</strong> Tous les calculs qui
+    produisent des valeurs décimales doivent être tronqués vers l'entier
+    inférieur (en utilisant int() en Python), et non pas arrondis au nombre
+    entier le plus proche. Par exemple, 17.8 devient 17, et 73.3 devient 73.
+  </p>
+
+  <br />
+
+  <p>
     Vous devez refaire le calcul des votes en convertissant les valeurs RGB en
     valeurs UV G B selon le calcul ci-dessus.
   </p>
@@ -44,14 +53,14 @@
     <br />
     UV = 20% de b + 10% de g - 30% de r<br />
     UV = 86 * 0.2 + 52 * 0.1 - 18 * 0.3<br />
-    UV = 17.2 + 5.2 - 5.4 = 17<br />
+    UV = 17.2 + 5.2 - 5.4 = 17.0 => 17 (tronqué avec int())<br />
     <br />
     B = 70% de b + 30% de g<br />
     B = 86 * 0.7 + 52 * 0.3<br />
-    B = 60.2 + 15.6 = 75<br />
+    B = 60.2 + 15.6 = 75.8 => 75 (tronqué avec int())<br />
     <br />
     G = 80% de g<br />
-    G = 52 * 0.8 = 41<br />
+    G = 52 * 0.8 = 41.6 => 41 (tronqué avec int())<br />
     <br />
     Nouveau code UVGB = #112B4B<br />
     En base 10 = 1122123
@@ -87,10 +96,10 @@
     <br />
     B = 70% de b + 30% de g<br />
     B = 69 * 0.7 + 163 * 0.3<br />
-    B = 48.3 + 48.9 = 97<br />
+    B = 48.3 + 48.9 = 97.2 => 97 (tronqué avec int())<br />
     <br />
     G = 80% de g<br />
-    G = 163 * 0.8 = 130<br />
+    G = 163 * 0.8 = 130.4 => 130 (tronqué avec int())<br />
     <br />
     Pour #01FAF3 :<br />
     r = 01 en base 16 => 1 en base 10<br />

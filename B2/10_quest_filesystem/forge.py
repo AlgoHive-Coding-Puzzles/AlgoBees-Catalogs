@@ -14,33 +14,21 @@ class Forge:
         length = random.randint(3, 8)
         return ''.join(random.choices("abcdefghijklmnopqrstuvwxyz", k=length))
     
-    def generate_file(self):
+    def generate_file(self, max_size=30000):
         """
         Return a file with random extension, and as second part of the return, a random size
         """
         extensions = ''.join(random.choices("abcdefghijklmnopqrstuvwxyz", k=3))
         filename = ''.join(random.choices("abcdefghijklmnopqrstuvwxyz", k=6))
-        size = random.randint(10000, 75000)  # Size between 10k and 75k bytes
+        size = random.randint(5000, max_size)  # Reduced maximum file size
         return f"{filename}.{extensions}", size
     
     def generate_structure(self):
         """
         Generate a random structure of folders and files (recursive)
-        src/
-        - folder1/
-        - - file1.txt (123 bytes)
-        - - file2.txt (456 bytes)
-        - - folderSome/
-        - - - file3.txt (789 bytes)
-        - folder2/
-        - - file4.txt (123 bytes)
-        - - folder4/
-        - - - folder5/
-        - - - - file5.txt (123 bytes)
-        - - - file 6.txt (456 bytes)
         """
-        MAX_DEPTH = 3
-        MAX_FILES = 5
+        MAX_DEPTH = 4  # Increased depth for more variety
+        MAX_FILES = 3  # Reduced max files for better control of directory sizes
         MAX_FOLDERS_PER_FOLDER = 3
         
         def create_structure(depth=0):
@@ -49,21 +37,25 @@ class Forge:
             
             structure = {}
             
-            # Generate files
+            # Generate files - fewer files at deeper levels
             files = []
-            for _ in range(random.randint(2, MAX_FILES)):
-                file_name, size = self.generate_file()
+            num_files = random.randint(1, max(1, MAX_FILES - depth))
+            for _ in range(num_files):
+                # Smaller files at deeper levels to ensure some dirs are under 100k
+                max_size = 30000 if depth > 1 else 40000
+                file_name, size = self.generate_file(max_size)
                 files.append((file_name, size))
             
             if files:
                 structure["files"] = files
             
-            # Generate subfolders
-            for _ in range(random.randint(1, MAX_FOLDERS_PER_FOLDER)):
-                if depth < MAX_DEPTH:  # Ensure we don't go too deep
+            # Generate subfolders - fewer folders at deeper levels
+            num_folders = random.randint(0, max(1, MAX_FOLDERS_PER_FOLDER - depth))
+            for _ in range(num_folders):
+                if depth < MAX_DEPTH:
                     folder_name = self.generate_folder_name()
                     sub_structure = create_structure(depth + 1)
-                    if sub_structure:  # Only add non-empty subfolders
+                    if sub_structure:
                         structure[folder_name] = sub_structure
             
             return structure
@@ -71,6 +63,39 @@ class Forge:
         # Start with a root folder
         root_folder = self.generate_folder_name()
         return {root_folder: create_structure()}
+    
+    def validate_structure(self, structure):
+        """
+        Check if the structure has at least one directory <= 100,000 bytes
+        and the largest such directory is not 0
+        """
+        # Calculate directory sizes
+        dir_sizes = {}
+        
+        def calculate_dir_sizes(node, path=''):
+            dir_size = 0
+            
+            for name, content in node.items():
+                if name == "files":
+                    for _, size in content:
+                        dir_size += size
+                else:
+                    subdir_path = f"{path}/{name}" if path else name
+                    subdir_size = calculate_dir_sizes(content, subdir_path)
+                    dir_size += subdir_size
+            
+            if path:  # Don't store size for the root
+                dir_sizes[path] = dir_size
+            return dir_size
+        
+        # Calculate sizes for all directories
+        for root, contents in structure.items():
+            calculate_dir_sizes(contents, root)
+        
+        # Check if we have directories <= 100,000 bytes
+        valid_dirs = [size for size in dir_sizes.values() if size <= 100000]
+        
+        return len(valid_dirs) >= 3  # At least 3 valid directories
 
     def pretty_print(self, structure):
         """
@@ -94,7 +119,18 @@ class Forge:
     
     def run(self) -> list:
         random.seed(self.unique_id)
-        structure = self.generate_structure()
+        
+        # Generate structure until we have one with valid directories
+        attempts = 0
+        max_attempts = 10
+        valid_structure = False
+        structure = None
+        
+        while not valid_structure and attempts < max_attempts:
+            structure = self.generate_structure()
+            valid_structure = self.validate_structure(structure)
+            attempts += 1
+        
         # Return the lines as a list
         lines = []
         def collect_lines(structure, prefix=""):
@@ -105,6 +141,7 @@ class Forge:
                 else:
                     lines.append(f"{prefix}- {key}/")
                     collect_lines(value, prefix + "  ")
+                    
         collect_lines(structure)
         return lines
         
