@@ -3,125 +3,130 @@
 
   <div>
     <p>
-    Il est temps de prendre une décision capitale : de quelle couleur sera le
-    drapeau de la nouvelle Ruche ? Chaque drone abeille a voté pour sa couleur
-    préférée, sans tenir compte des instructions qui demandaient de choisir
-    entre Rouge Bleu ou Vert. La Reine vous demande quoi faire.
-  </p>
+      Il est temps de prendre une décision capitale : de quelle couleur sera le
+      drapeau de la nouvelle Ruche ? Chaque drone abeille a voté pour sa couleur
+      préférée, sans tenir compte des instructions qui demandaient de choisir
+      entre Rouge Bleu ou Vert. La Reine vous demande quoi faire.
+    </p>
 
-  <br />
+    <br />
 
-  <p>
-    Vous proposez de rassembler les couleurs votées selon leur proximité avec le
-    rouge, le vert ou le bleu pour trouver une couleur qui traduise la volonté
-    du peuple. Les proportions de votes pour chacun des trois choix initiaux
-    formeront le code couleur du nouveau drapeau.
-  </p>
+    <p>
+      Vous proposez de rassembler les couleurs votées selon leur proximité avec
+      le rouge, le vert ou le bleu pour trouver une couleur qui traduise la
+      volonté du peuple. Les proportions de votes pour chacun des trois choix
+      initiaux formeront le code couleur du nouveau drapeau.
+    </p>
 
-  <br />
+    <br />
 
-  <p>
-    Vous devez ensuite rapporter ce code couleur en base 10 pour que Bee-Casso,
-    le peintre royal, puisse présenter sa facture.
-  </p>
+    <p>
+      Vous devez ensuite rapporter ce code couleur en base 10 pour que
+      Bee-Casso, le peintre royal, puisse présenter sa facture.
+    </p>
 
-  <br />
+    <br />
 
-  <p>
-    Votre input est une liste de couleurs au format hexadécimal, par exemple :
-  </p>
+    <p>
+      Votre input est une liste de couleurs au format hexadécimal, par exemple :
+    </p>
 
-  <code>
-    #FFA345<br />
-    #01FAF3<br />
-    #45FA01<br />
-  </code>
+    <code>
+      #FFA345<br />
+      #01FAF3<br />
+      #45FA01<br />
+    </code>
 
-  <p>
-    Calculer la distance euclidienne entre chaque couleur, pour déterminer la
-    couleur la plus proche de chacune des trois couleurs primaires. Par exemple
-    avec "#FFA345" => (255, 163, 69), la distance euclidienne entre cette
-    couleur et le rouge "#FF0000" (255, 0, 0) est :
-  </p>
+    <p>
+      Calculer la distance euclidienne entre chaque couleur, pour déterminer la
+      couleur la plus proche de chacune des trois couleurs primaires. Par
+      exemple avec "#FFA345" => (255, 163, 69), la distance euclidienne entre
+      cette couleur et le rouge "#FF0000" (255, 0, 0) est :
+    </p>
 
-  <code>
-    Rouge = sqrt((255-255)^2 + (163-0)^2 + (69-0)^2) = sqrt(0 + 26569 + 4761) =
-    sqrt(31330) = 177.06<br />
-    Vert = sqrt((255-0)^2 + (163-255)^2 + (69-0)^2) = sqrt(65025 + 7569 + 4761)
-    = sqrt(77700) = 278.67<br />
-    Bleu = sqrt((255-0)^2 + (163-0)^2 + (69-255)^2) = sqrt(65025 + 26569 + 3456)
-    = sqrt(93250) = 305.38<br />
-  </code>
+    <code>
+      Rouge = sqrt((255-255)^2 + (163-0)^2 + (69-0)^2) = sqrt(0 + 26569 + 4761)
+      = sqrt(31330) = 177.06<br />
+      Vert = sqrt((255-0)^2 + (163-255)^2 + (69-0)^2) = sqrt(65025 + 7569 +
+      4761) = sqrt(77700) = 278.67<br />
+      Bleu = sqrt((255-0)^2 + (163-0)^2 + (69-255)^2) = sqrt(65025 + 26569 +
+      3456) = sqrt(93250) = 305.38<br />
+    </code>
 
-  <br />
+    <br />
 
-  <p>
-    La couleur la plus proche de "#FFA345" (255, 163, 69) est le rouge avec une
-    distance de 177.06.
-  </p>
+    <p>
+      La couleur la plus proche de "#FFA345" (255, 163, 69) est le rouge avec
+      une distance de 177.06.
+    </p>
 
-  <br />
+    <br />
 
-  <p>Les couleurs les plus proches de chacune des couleurs de l'input sont :</p>
+    <p>
+      Les couleurs les plus proches de chacune des couleurs de l'input sont :
+    </p>
 
-  <code>
-    Hex color: #FFA345, Distances - Rouge: 177.00282483621552, Vert:
-    279.7320146139873, Bleu: 355.23231834955556 => Rouge<br />
-    Hex color: #01FAF3, Distances - Rouge: 431.3525240450089, Vert:
-    243.0534920547327, Bleu: 250.28983199482954 => Vert<br />
-    Hex color: #45FA01, Distances - Rouge: 311.6039152513973, Vert:
-    69.18814927427962, Bleu: 363.0110191165001 => Vert
-  </code>
+    <code>
+      Hex color: #FFA345, Distances - Rouge: 177.00282483621552, Vert:
+      279.7320146139873, Bleu: 355.23231834955556 => Rouge<br />
+      Hex color: #01FAF3, Distances - Rouge: 431.3525240450089, Vert:
+      243.0534920547327, Bleu: 250.28983199482954 => Vert<br />
+      Hex color: #45FA01, Distances - Rouge: 311.6039152513973, Vert:
+      69.18814927427962, Bleu: 363.0110191165001 => Vert
+    </code>
 
-  <br />
+    <br />
 
-  <p>Ce qui donne au niveau des votes :</p>
+    <p>Ce qui donne au niveau des votes :</p>
 
-  <br />
+    <br />
 
-  <pre>
+    <pre>
     {
       "Rouge": 1,
       "Vert": 2,
       "Bleu": 0
     }
-  </pre>
+  </pre
+    >
 
-  <br />
+    <br />
 
-  <p>
-    En se basant sur le résultat des votes, le code couleur du drapeau sera :
-  </p>
+    <p>
+      En se basant sur le résultat des votes, le code couleur du drapeau sera :
+    </p>
 
-  <br />
+    <br />
 
-  <code> (1, 2, 0), en hexa => (#010200) => en base 10 => 66048 </code>
+    <code> (1, 2, 0), en hexa => (#010200) => en base 10 => 66048 </code>
 
-  <br />
+    <br />
 
-  <p>
-    Si vous avez plus de 255 votes pour une couleur, vous devez en faire le
-    modulo 256 pour que Bee-Casso puisse peindre le drapeau.
-  </p>
+    <p>
+      Si vous avez plus de 255 votes pour une couleur, vous devez en faire le
+      modulo 256 pour que Bee-Casso puisse peindre le drapeau.
+    </p>
 
-  <br />
+    <br />
 
-  <p>
-    <strong>Note importante sur les arrondis :</strong> Lors de tous vos
-    calculs, si vous obtenez des valeurs décimales, vous devez les tronquer vers
-    le bas (en utilisant int() en Python) et non pas les arrondir au nombre
-    entier le plus proche.
-  </p>
+    <p>
+      <strong>Note importante sur les arrondis :</strong> Lors de tous vos
+      calculs, si vous obtenez des valeurs décimales, vous devez les tronquer
+      vers le bas (en utilisant int() en Python) et non pas les arrondir au
+      nombre entier le plus proche.
+    </p>
 
-  <br />
+    <br />
 
-  <p>Vous pouvez passer d'une base à une autre en python grâce à la fonction</p>
+    <p>
+      Vous pouvez passer d'une base à une autre en python grâce à la fonction
+    </p>
 
-  <code> int("010200", 16) </code>
+    <code> int("010200", 16) </code>
 
-  <p>qui vous donnera le nombre 66048.</p>
+    <p>qui vous donnera le nombre 66048.</p>
 
-  <br />
+    <br />
 
     <p>
       Donnez le code couleur du drapeau en base 10, en vous basant sur les
