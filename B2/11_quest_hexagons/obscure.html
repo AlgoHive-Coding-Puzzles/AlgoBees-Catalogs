@@ -1,39 +1,40 @@
 <article>
   <h2>--- Quête 11 - partie 2 : Pillage en spirale ---</h2>
 
-  <p>
-    C’est mieux, mais toujours pas assez. Vous décidez de repasser dans les
-    étages, mais en spirale, pour récupérer ce qui a pu être laissé ou manqué.
-  </p>
+  <div>
+    <p>
+      C’est mieux, mais toujours pas assez. Vous décidez de repasser dans les
+      étages, mais en spirale, pour récupérer ce qui a pu être laissé ou manqué.
+    </p>
 
-  <br />
+    <br />
 
-  <p>
-    La grille hexagonale est la même que dans la première partie, mais cette
-    fois, vous devez vous déplacer dans la grille en partant de la cellule
-    donnée, et vous déplacer en spirale autour de cette cellule. Vous devez
-    explorer toutes les cellules accessibles dans la grille de cette façon, et
-    ainsi déterminer le score total obtenu après avoir suivi ce parcours.
-  </p>
+    <p>
+      La grille hexagonale est la même que dans la première partie, mais cette
+      fois, vous devez vous déplacer dans la grille en partant de la cellule
+      donnée, et vous déplacer en spirale autour de cette cellule. Vous devez
+      explorer toutes les cellules accessibles dans la grille de cette façon, et
+      ainsi déterminer le score total obtenu après avoir suivi ce parcours.
+    </p>
 
-  <br />
+    <br />
 
-  <p>
-    Votre chemin s'arrête lorsque vous ne pouvez plus avancer dans la grille
-    hexagonale.
-  </p>
+    <p>
+      Votre chemin s'arrête lorsque vous ne pouvez plus avancer dans la grille
+      hexagonale.
+    </p>
 
-  <br />
+    <br />
 
-  <p>
-    Vous partez de votre point de départ avec comme première direction le NE,
-    puis vous effectuez votre spirale en suivant le sens horaire. Vous devez
-    vous déplacer dans la grille hexagonale en suivant l'ordre suivant :
-  </p>
+    <p>
+      Vous partez de votre point de départ avec comme première direction le NE,
+      puis vous effectuez votre spirale en suivant le sens horaire. Vous devez
+      vous déplacer dans la grille hexagonale en suivant l'ordre suivant :
+    </p>
 
-  <br />
+    <br />
 
-  <pre>
+    <pre>
     - 1. Première spirale : ['NE', 'S', 'SW', 'NW', 'N', 'NE']
     - - (On quitte la première spirale en partant vers le NE)
     - 2. Deuxième spirale : ['NE', 'SE', 'S', 'S', 'SW', 'SW', 'NW', 'NW', 'N', 'N', 'NE', 'NE']
@@ -41,20 +42,21 @@
     - 3. Troisième spirale: 
     ...
 
-  </pre>
+  </pre
+    >
 
-  <br />
+    <br />
 
-  <p>
-    Les mouvements en dessous de votre grille ne sont plus nécessaires, vous
-    pouvez vous en débarrasser.
-  </p>
+    <p>
+      Les mouvements en dessous de votre grille ne sont plus nécessaires, vous
+      pouvez vous en débarrasser.
+    </p>
 
-  <p>Exemple :</p>
+    <p>Exemple :</p>
 
-  <br />
+    <br />
 
-  <pre>
+    <pre>
     Grille :
     O R . O R . O R
     R . O R R . O R
@@ -62,11 +64,12 @@
     R . R X R . O R
     . R O R O . R .
     R . R O R . O R
-  </pre>
+  </pre
+    >
 
-  <br />
+    <br />
 
-  <pre>
+    <pre>
     Grille :
     O R 17 O 7 . O R
     R 16 O 6 R 8 O R
@@ -74,18 +77,19 @@
     R 14 4 X 2 10 O R
     . R 13 3 11 . R .
     R . R 12 R . O R
-  </pre>
+  </pre
+    >
 
-  <p>
-    Vous partez de la cellule (3, 3) et vous devez vous déplacer en spirale
-    autour de cette cellule. Vous devez d'abord vous déplacer vers le NE, puis
-    vers le S, puis vers le SW, puis vers le NW, puis vers le N, puis vers le
-    NE, etc.
-  </p>
+    <p>
+      Vous partez de la cellule (3, 3) et vous devez vous déplacer en spirale
+      autour de cette cellule. Vous devez d'abord vous déplacer vers le NE, puis
+      vers le S, puis vers le SW, puis vers le NW, puis vers le N, puis vers le
+      NE, etc.
+    </p>
 
-  <br />
+    <br />
 
-  <pre>
+    <pre>
 
     Départ : (3, 3)
     NE : (4, 2) = R => (+5)
@@ -105,33 +109,35 @@
     N : (1, 2) = R => (+5)
     N : (1, 1) = . => (+0)
     NE : (2, 0) = . => (+0)
-  </pre>
+  </pre
+    >
 
-  <p>
-    Le parcours a une longeur de 17 cellules
+    <p>
+      Le parcours a une longeur de 17 cellules
+      <br />
+      On fait la somme des scores de chaque cellule visitée:
+    </p>
+
     <br />
-    On fait la somme des scores de chaque cellule visitée:
-  </p>
 
-  <br />
+    <code>
+      5 + 5 + 5 + 5 + 0 + 5 + 5 + 0 + 0 + -1 + -1 + -1 +0 + 5 + 0 + 0 = 32
+    </code>
 
-  <code>
-    5 + 5 + 5 + 5 + 0 + 5 + 5 + 0 + 0 + -1 + -1 + -1 +0 + 5 + 0 + 0 = 32
-  </code>
-
-  <br />
-
-  <p>
-    Le chemin en spiral fait 17 cellules et le score total est de 32. Ce qui
-    donne un score de 17 * 32 = 544.
-  </p>
-
-  <br />
-
-  <p>
-    Trouvez le score du chemin en spirale, en partant de la cellule de départ
-    (X).
     <br />
-    Quel est votre score en suivant le chemin en spirale ?
-  </p>
+
+    <p>
+      Le chemin en spiral fait 17 cellules et le score total est de 32. Ce qui
+      donne un score de 17 * 32 = 544.
+    </p>
+
+    <br />
+
+    <p>
+      Trouvez le score du chemin en spirale, en partant de la cellule de départ
+      (X).
+      <br />
+      Quel est votre score en suivant le chemin en spirale ?
+    </p>
+  </div>
 </article>
